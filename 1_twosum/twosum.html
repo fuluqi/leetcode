@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>twosum的题目</title>
+</head>
+<body>
+    <!-- 
+        Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+        You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Example:
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+     -->
+</body>
+
+<script>
+    /* 最传统的方法，时间复杂度太高 */
+    var twoSum = function(nums, target) {        
+            var len = nums.length;
+                for (var i = 0; i < len; i++){
+                    for (var j = (i+1); j < len; j++) {
+                        if((nums[i] + nums[j]) == target){
+                            return [i, j];
+                        }
+                    }
+                }
+        
+        };        
+</script>
+
+<script>
+
+    /* 方法二 ：可已使用类似于排序中桶排序的思路，重新存放一个数组，问题： 浪费空间*/
+    var twoSum = function(nums, target) {
+    var len = nums.length;
+    var arr = [];
+    for (var i = 0; i < len; i++){
+        arr[nums[i]] = i;
+    }
+    
+    for(var i = 0; i < len; i++){
+        j = arr[target - nums[i]];
+        if(j != undefined && j != i){
+            return [i, j]
+        }
+    }
+    
+
+};
+</script>
+
+
+<script>
+    /* 方法三，类似于方法二
+    */
+var twoSum = function(nums, target) {  
+        var len = nums.length;
+        var arr = [];
+        for(var i = 0; i < len; i++){
+            arr[nums[i]] = i;
+            j = arr[target - nums[i]];
+            if(j != undefined && j != i){
+                return [i, j]
+            }
+        }
+        
+    
+    };
+</script>
+
+<script>
+    /* 方法四， 思路与方法二相同，但是这里使用map对象直接存键值，可以查看https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map  */
+    var twoSum = function(nums, target){
+        var len = nums.length;
+        var map = new Map();
+        for(var i = 0; i < len; i++){
+            var complement = target - nums[i];
+            if(map.has(complement)){
+                return [map.get(complement), i]
+            }
+            map.set(nums[i], i);
+        }
+    }
+</script>
+</html>
